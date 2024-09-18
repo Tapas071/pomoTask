@@ -1,7 +1,16 @@
 import React from 'react'
-import { Button } from '../ui/button'
+// import { Button } from '../ui/button'
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '../ui/alert-dialog';
-import { EditForm } from './EditForm';
+// import { EditForm } from './EditForm';
+import dynamic from "next/dynamic";
+const EditForm = dynamic(
+  () => import("./EditForm").then((mod) => mod.EditForm),
+  { ssr: false }
+);
+
+const Button = dynamic(() => import("../ui/button").then((mod) => mod.Button), {
+  ssr: false,
+});
 
 const dialog =()=>{ 
   <>
