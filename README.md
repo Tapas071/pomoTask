@@ -1,0 +1,1 @@
+Link of the details notion file : https://www.notion.so/PomoTask-dd2d5028b9f04be6b7c1a85b1c44e1fb

@@ -2,8 +2,8 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, FormProvider } from "react-hook-form";
-// import { useForm, FormProvider } from "react-hook-form";
-
+import axios from "axios";
+import {useState} from "react";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import {
@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
+import { AlertDialogAction } from "@radix-ui/react-alert-dialog";
 
 const formSchema = z.object({
   title: z.string().min(2, {
@@ -25,24 +26,25 @@ const formSchema = z.object({
   description: z.string().min(2, {
     message: "description must be at least 2 characters.",
   }),
-  status: z.boolean(),
+  status: z.string().min(2,{
+    message: "status must be at least 2 characters."
+  }),
 });
 
 export function EditForm() {
-    
+  const [isDone , setIsDone] = useState("false");
     const router = useRouter();
     const form = useForm({
       resolver: zodResolver(formSchema),
     });
-
         const onSubmit = async (data: any) => {
-          //  data.status = data.status === "true";
-          // console.log(data);
-          // router.refresh();
-        //   onSubmitSuccess();
+           data.status = data.status === "true";
+          console.log(data);
+          const response = await axios.post("/api/add-todo", data);
+          console.log(response);
+         router.refresh();
+          // onSubmitSuccess();
         };
-
-
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -80,9 +82,16 @@ export function EditForm() {
               <FormLabel>Status</FormLabel>
               <FormControl>
                 {/* <Input placeholder="shadcn" {...field} /> */}
-                <select {...field} className="w-full p-2 border border-gray-300 rounded-md">
+                <select
+                  {...field}
+                  className="w-full p-2 border border-gray-300 rounded-md"
+                  onChange={(e) => {
+                    field.onChange(e.target.value); // Update form state
+                    setIsDone(e.target.value); // Update local state
+                  }}
+                >
+                  <option value="false">Undone</option>
                   <option value="true">Done</option>
-                  <option value="false">Not Done</option>
                 </select>
               </FormControl>
               {/* <FormDescription>
@@ -93,7 +102,9 @@ export function EditForm() {
           )}
         />
 
-        <Button type="submit">Submit</Button>
+        <AlertDialogAction>
+          <Button type="submit">Submit</Button>
+        </AlertDialogAction>
       </form>
     </Form>
   );

@@ -3,6 +3,7 @@ import React from 'react'
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '../ui/alert-dialog';
 // import { EditForm } from './EditForm';
 import dynamic from "next/dynamic";
+import Settings from './Settings';
 const EditForm = dynamic(
   () => import("./EditForm").then((mod) => mod.EditForm),
   { ssr: false }
@@ -64,6 +65,10 @@ const Navbar = () => {
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
+        </div>
+
+        <div className="">
+              <Settings/>
         </div>
       </nav>
     </>

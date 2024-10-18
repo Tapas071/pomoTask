@@ -8,3 +8,9 @@ export interface TodoType extends Document {
     createdAt?: Date;      // Timestamps will auto-generate these fields
     updatedAt?: Date;
 }
+export   interface Todo {
+  _id: string;
+  title: string;
+  description: string;
+  isCompleted: boolean;
+}
