@@ -4,6 +4,10 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 // import { EditForm } from './EditForm';
 import dynamic from "next/dynamic";
 import Settings from './Settings';
+import Image from 'next/image';
+import pomoClock from "@/assets/images/pomoClock.png";
+
+
 const EditForm = dynamic(
   () => import("./EditForm").then((mod) => mod.EditForm),
   { ssr: false }
@@ -43,7 +47,7 @@ const Navbar = () => {
   return (
     <>
       <nav className="h-4 m-5 flex justify-around">
-        <div className="bg-red-50">Logo</div>
+        <Image src={pomoClock} alt="logo" width={100} />
 
         <div className="">
           <AlertDialog>
@@ -68,7 +72,7 @@ const Navbar = () => {
         </div>
 
         <div className="">
-              <Settings/>
+          <Settings />
         </div>
       </nav>
     </>
