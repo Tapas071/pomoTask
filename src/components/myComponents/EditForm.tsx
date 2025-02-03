@@ -31,18 +31,27 @@ const formSchema = z.object({
   }),
 });
 
-export function EditForm() {
+interface EditFormProps {
+
+  open: boolean;
+
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+
+}
+
+const EditForm: React.FC<EditFormProps> = ({ open, setOpen }) => {
   const [isDone , setIsDone] = useState("false");
     const router = useRouter();
     const form = useForm({
       resolver: zodResolver(formSchema),
     });
         const onSubmit = async (data: any) => {
-           data.status = data.status === "true";
-          console.log(data);
-          const response = await axios.post("/api/add-todo", data);
-          console.log(response);
-         router.refresh();
+            // e.preventDefault();
+          //  data.status = data.status === "true";
+          // console.log(data);
+          // const response = await axios.post("/api/add-todo", data);
+          // console.log(response);
+        //  router.refresh();
           // onSubmitSuccess();
         };
   return (
@@ -103,9 +112,12 @@ export function EditForm() {
         />
 
         <AlertDialogAction>
-          <Button type="submit">Submit</Button>
+          <Button type="submit" onClick={()=>{
+            console.log("clicked")
+          }}>Submit</Button>
         </AlertDialogAction>
       </form>
     </Form>
   );
 }
+export default EditForm

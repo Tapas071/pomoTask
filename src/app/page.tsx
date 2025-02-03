@@ -5,10 +5,14 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-  <>
-    <Navbar/>
-    <Clock/>
-    <TodoTable/>
-  </>
+    <>
+      <div className="h-screen p-10 bg-gray-100 dark:bg-gray-900">
+        <Navbar />
+        <Clock />
+        <div className="">
+          <TodoTable />
+        </div>
+      </div>
+    </>
   );
 }
